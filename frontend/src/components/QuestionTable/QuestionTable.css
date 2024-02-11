@@ -1,0 +1,29 @@
+.q{
+    width: 35px;
+	height: 35px;
+	float: left;
+	padding: 0;
+	margin: 5px;
+	background: #ecedef;
+	border: none;
+	font-size: 20px;
+	line-height: 30px;
+	border-radius: 50%;
+	font-weight: 700;
+	color: #696969;
+	cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.question-container {
+    margin-top: 15vh;
+    height: 10vh;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); 
+}
+#test-submit{
+	display: fixed;
+	margin-top: 25.5vh;
+	margin-left: 5vw;
+}
