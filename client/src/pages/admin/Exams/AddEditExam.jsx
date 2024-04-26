@@ -151,13 +151,13 @@ function AddEditExam() {
       title: "Options",
       dataIndex: "options",
       render: (text, record) => {
-        return Object.keys(record.options).map((key) => {
-          return (
+        return Object.keys(record.options).map((key) => 
+           (
             <div>
               {key} : {record.options[key]}
             </div>
-          );
-        });
+          )
+        );
       },
     },
     {
