@@ -17,7 +17,42 @@ Welcome to the Quiz Web App! This application is designed to facilitate quiz-bas
 
 ### Installation
 
-/////
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm start`
+
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
+### `npm test`
+
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you eject, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can eject at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except eject will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use eject. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However, we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
 ### Usage
 
@@ -27,7 +62,28 @@ Welcome to the Quiz Web App! This application is designed to facilitate quiz-bas
 4. Monitor quiz progress in real-time and view results after completion.
 
 ## Technologies Used
-///
+
+### Backend
+- **Node.js**: A JavaScript runtime environment used for building scalable and high-performance server-side applications.
+- **Express.js**: A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
+- **MongoDB**: A NoSQL database that stores data in flexible, JSON-like documents. MongoDB is used for storing user authentication data, quiz information, question bank, and quiz results.
+- **Mongoose**: A MongoDB object modeling tool designed to work in an asynchronous environment. Mongoose is used to define schemas and models for MongoDB collections, providing a straightforward way to interact with the database.
+- **JWT (JSON Web Tokens)**: Used for authentication and authorization, JWTs securely transmit information between parties as a JSON object.
+
+### Frontend
+- **React.js**: A JavaScript library for building user interfaces. React allows developers to create reusable UI components, making it easier to manage complex UIs.
+- **TypeScript**: A superset of JavaScript that adds static types to the language, enhancing code quality and maintainability by catching errors at compile time.
+- **React Router**: Used for client-side routing in React applications, allowing for navigation between different components without a page reload.
+- **Axios**: A promise-based HTTP client for making asynchronous HTTP requests in JavaScript. Axios is used for communicating with the backend API to fetch and send data.
+
+### Additional Tools and Libraries
+- **Redux (optional)**: A predictable state container for JavaScript apps, Redux is used for managing application state in larger, more complex React applications.
+- **Material-UI**: A popular React UI framework that provides pre-designed components and styles, allowing for rapid development of aesthetically pleasing user interfaces.
+- **Formik & Yup**: Formik is a form library for React that helps with form validation, while Yup is a JavaScript schema builder for value parsing and validation.
+- **Socket.io (for real-time monitoring)**: Socket.io enables real-time, bidirectional communication between web clients and servers. It's used for monitoring quiz progress in real-time and providing instant feedback to participants.
+
+### Gemini API Integration (Optional)
+If you're incorporating the Gemini API into your Quiz Web App, it suggests that you might want to integrate cryptocurrency-related functionalities. This integration could include features such as fetching real-time cryptocurrency data, displaying market trends, enabling users to create quizzes related to cryptocurrencies, and tracking cryptocurrency portfolios within the application. Integrating Gemini API would require implementing authentication with the Gemini platform, handling API requests/responses, and presenting relevant data to users in the frontend.
 
 ## Contributing
 
