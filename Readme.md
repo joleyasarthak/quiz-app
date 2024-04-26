@@ -76,14 +76,7 @@ You don't have to ever use eject. The curated feature set is suitable for small 
 - **React Router**: Used for client-side routing in React applications, allowing for navigation between different components without a page reload.
 - **Axios**: A promise-based HTTP client for making asynchronous HTTP requests in JavaScript. Axios is used for communicating with the backend API to fetch and send data.
 
-### Additional Tools and Libraries
-- **Redux (optional)**: A predictable state container for JavaScript apps, Redux is used for managing application state in larger, more complex React applications.
-- **Material-UI**: A popular React UI framework that provides pre-designed components and styles, allowing for rapid development of aesthetically pleasing user interfaces.
-- **Formik & Yup**: Formik is a form library for React that helps with form validation, while Yup is a JavaScript schema builder for value parsing and validation.
-- **Socket.io (for real-time monitoring)**: Socket.io enables real-time, bidirectional communication between web clients and servers. It's used for monitoring quiz progress in real-time and providing instant feedback to participants.
 
-### Gemini API Integration (Optional)
-If you're incorporating the Gemini API into your Quiz Web App, it suggests that you might want to integrate cryptocurrency-related functionalities. This integration could include features such as fetching real-time cryptocurrency data, displaying market trends, enabling users to create quizzes related to cryptocurrencies, and tracking cryptocurrency portfolios within the application. Integrating Gemini API would require implementing authentication with the Gemini platform, handling API requests/responses, and presenting relevant data to users in the frontend.
 
 ## Contributing
 
