@@ -1,5 +1,5 @@
 import { message } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { getUserInfo } from "../apicalls/users.js";
 import { useDispatch, useSelector } from "react-redux";
 import { SetUser } from "../redux/usersSlice.js";
@@ -8,8 +8,8 @@ import { HideLoading, ShowLoading } from "../redux/loaderSlice.js";
 
 function ProtectedRoute({ children }) {
   const { user } = useSelector((state) => state.users);
-  const [menu, setMenu] = useState([]);
-  const [collapsed, setCollapsed] = useState(false);
+  const [menu, setMenu] = React.useState([]);
+  const [collapsed, setCollapsed] = React.useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -101,7 +101,7 @@ function ProtectedRoute({ children }) {
     }
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (localStorage.getItem("token")) {
       getUserData();
     } else {
