@@ -1,4 +1,3 @@
-import { Button } from "antd";
 import "./stylesheets/theme.css";
 import "./stylesheets/alignments.css";
 import "./stylesheets/textelements.css";
@@ -21,6 +20,7 @@ import AboutUs from "./pages/common/AboutUs";
 
 function App() {
   const { loading } = useSelector((state) => state.loader);
+  console.log(process.env.REACT_APP_BACKEND_URI);
   return (
     <>
       {loading && <Loader />}

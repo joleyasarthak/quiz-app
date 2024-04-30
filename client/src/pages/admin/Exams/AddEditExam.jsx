@@ -69,25 +69,6 @@ function AddEditExam() {
     }
   };
 
-  const generateQuestions = async () => {
-    try {
-      dispatch(ShowLoading());
-      const response = await generateQuestionsForExam({
-        exam_id: params.id,
-      });
-      dispatch(HideLoading());
-      if (response.success) {
-        message.success(response.message);
-        getExamData();
-      } else {
-        message.error(response.message);
-      }
-    } catch (error) {
-      dispatch(HideLoading());
-      message.error(error.message);
-    }
-  };
-
   const getExamData = async () => {
     try {
       dispatch(ShowLoading());
@@ -107,6 +88,24 @@ function AddEditExam() {
         response.data.datetime = newDateRange;
         setDateRange(newDateRange);
         setExamData(response.data);
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
+  const generateQuestions = async () => {
+    try {
+      dispatch(ShowLoading());
+      const response = await generateQuestionsForExam({
+        exam_id: params.id,
+      });
+      dispatch(HideLoading());
+      if (response.success) {
+        message.success(response.message);
+        getExamData();
       } else {
         message.error(response.message);
       }

@@ -88,10 +88,10 @@ function WriteExam() {
     const startDate = new Date(examData.datetime[0]);
     const endDate = new Date(examData.datetime[1]);
     if (date < startDate) {
-      alert("Exam is not started yet");
+      message.error("Exam has not started yet.");
       return false;
     } else if (date > endDate) {
-      alert("Exam not accepting responses anymore.");
+      message.error("Exam not accepting responses anymore.");
       return false;
     }
     let totalSeconds = examData.duration;
@@ -121,214 +121,218 @@ function WriteExam() {
   }, []);
   return (
     examData && (
-      <div className="mt-2">
-        <div className="divider"></div>
-        <h1 className="text-center text-xl">{examData.name}</h1>
-        <div className="divider"></div>
+      <div>
+        <div className="mt-2">
+          <div className="divider"></div>
+          <h1 className="text-center text-xl">{examData.name}</h1>
+          <div className="divider"></div>
 
-        {view === "instructions" && (
-          <Instructions
-            examData={examData}
-            setView={setView}
-            startTimer={startTimer}
-          />
-        )}
+          {view === "instructions" && (
+            <Instructions
+              examData={examData}
+              setView={setView}
+              startTimer={startTimer}
+            />
+          )}
 
-        {view === "questions" && (
-          <div className="flex flex-col gap-2">
-            <div className="flex justify-between">
-              <h1 className="text-2xl">
-                {selectedQuestionIndex + 1} :{" "}
-                {questions[selectedQuestionIndex].name}
-              </h1>
+          {view === "questions" && (
+            <div className="flex flex-col gap-2">
+              <div className="flex justify-between">
+                <h1 className="text-2xl">
+                  {selectedQuestionIndex + 1} :{" "}
+                  {questions[selectedQuestionIndex].name}
+                </h1>
 
-              <div className="timer">
-                <span className="text-2xl">{secondsLeft}</span>
+                <div className="timer">
+                  <span className="text-2xl">{secondsLeft}</span>
+                </div>
               </div>
-            </div>
 
-            <div className="flex flex-col gap-2">
-              {Object.keys(questions[selectedQuestionIndex].options).map(
-                (option, index) => {
-                  return (
-                    <div
-                      className={`flex gap-2 flex-col ${
-                        selectedOptions[selectedQuestionIndex] === option
-                          ? "selected-option"
-                          : "option"
-                      }`}
-                      key={index}
-                      onClick={() => {
-                        setSelectedOptions({
-                          ...selectedOptions,
-                          [selectedQuestionIndex]: option,
-                        });
-                      }}
-                    >
-                      <h1 className="text-xl">
-                        {option} :{" "}
-                        {questions[selectedQuestionIndex].options[option]}
-                      </h1>
-                    </div>
-                  );
-                }
-              )}
-            </div>
+              <div className="flex flex-col gap-2">
+                {Object.keys(questions[selectedQuestionIndex].options).map(
+                  (option, index) => {
+                    return (
+                      <div
+                        className={`flex gap-2 flex-col ${
+                          selectedOptions[selectedQuestionIndex] === option
+                            ? "selected-option"
+                            : "option"
+                        }`}
+                        key={index}
+                        onClick={() => {
+                          setSelectedOptions({
+                            ...selectedOptions,
+                            [selectedQuestionIndex]: option,
+                          });
+                        }}
+                      >
+                        <h1 className="text-xl">
+                          {option} :{" "}
+                          {questions[selectedQuestionIndex].options[option]}
+                        </h1>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
 
-            <div className="flex justify-between">
-              {selectedQuestionIndex > 0 && (
-                <button
-                  className="primary-outlined-btn"
-                  onClick={() => {
-                    setSelectedQuestionIndex(selectedQuestionIndex - 1);
-                  }}
-                >
-                  Previous
-                </button>
-              )}
-
-              {selectedQuestionIndex < questions.length - 1 && (
-                <button
-                  className="primary-contained-btn"
-                  onClick={() => {
-                    setSelectedQuestionIndex(selectedQuestionIndex + 1);
-                  }}
-                >
-                  Next
-                </button>
-              )}
-
-              {selectedQuestionIndex === questions.length - 1 && (
-                <button
-                  className="primary-contained-btn"
-                  onClick={() => {
-                    clearInterval(intervalId);
-                    setTimeUp(true);
-                  }}
-                >
-                  Submit
-                </button>
-              )}
-            </div>
-          </div>
-        )}
-
-        {view === "result" && (
-          <div className="flex  items-center mt-2 justify-center result">
-            <div className="flex flex-col gap-2">
-              <h1 className="text-2xl">RESULT</h1>
-              <div className="divider"></div>
-              <div className="marks">
-                <h1 className="text-md">Total Marks : {examData.totalMarks}</h1>
-                <h1 className="text-md">
-                  Obtained Marks :{result.correctAnswers.length}
-                </h1>
-                <h1 className="text-md">
-                  Wrong Answers : {result.wrongAnswers.length}
-                </h1>
-                <h1 className="text-md">
-                  Passing Marks : {examData.passingMarks}
-                </h1>
-                <h1 className="text-md">VERDICT :{result.verdict}</h1>
-
-                <div className="flex gap-2 mt-2">
+              <div className="flex justify-between">
+                {selectedQuestionIndex > 0 && (
                   <button
                     className="primary-outlined-btn"
                     onClick={() => {
-                      setView("instructions");
-                      setSelectedQuestionIndex(0);
-                      setSelectedOptions({});
-                      setSecondsLeft(examData.duration);
+                      setSelectedQuestionIndex(selectedQuestionIndex - 1);
                     }}
                   >
-                    Retake Exam
+                    Previous
                   </button>
+                )}
+
+                {selectedQuestionIndex < questions.length - 1 && (
                   <button
                     className="primary-contained-btn"
                     onClick={() => {
-                      setView("review");
+                      setSelectedQuestionIndex(selectedQuestionIndex + 1);
                     }}
                   >
-                    Review Answers
+                    Next
                   </button>
-                </div>
+                )}
+
+                {selectedQuestionIndex === questions.length - 1 && (
+                  <button
+                    className="primary-contained-btn"
+                    onClick={() => {
+                      clearInterval(intervalId);
+                      setTimeUp(true);
+                    }}
+                  >
+                    Submit
+                  </button>
+                )}
               </div>
             </div>
-            <div className="lottie-animation">
-              {result.verdict === "Pass" && (
-                <lottie-player
-                  src="https://assets2.lottiefiles.com/packages/lf20_ya4ycrti.json"
-                  background="transparent"
-                  speed="1"
-                  loop
-                  autoplay
-                ></lottie-player>
-              )}
+          )}
 
-              {result.verdict === "Fail" && (
-                <lottie-player
-                  src="https://assets4.lottiefiles.com/packages/lf20_qp1spzqv.json"
-                  background="transparent"
-                  speed="1"
-                  loop
-                  autoplay
-                ></lottie-player>
-              )}
+          {view === "result" && (
+            <div className="flex  items-center mt-2 justify-center result">
+              <div className="flex flex-col gap-2">
+                <h1 className="text-2xl">RESULT</h1>
+                <div className="divider"></div>
+                <div className="marks">
+                  <h1 className="text-md">
+                    Total Marks : {examData.totalMarks}
+                  </h1>
+                  <h1 className="text-md">
+                    Obtained Marks :{result.correctAnswers.length}
+                  </h1>
+                  <h1 className="text-md">
+                    Wrong Answers : {result.wrongAnswers.length}
+                  </h1>
+                  <h1 className="text-md">
+                    Passing Marks : {examData.passingMarks}
+                  </h1>
+                  <h1 className="text-md">VERDICT :{result.verdict}</h1>
+
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      className="primary-outlined-btn"
+                      onClick={() => {
+                        setView("instructions");
+                        setSelectedQuestionIndex(0);
+                        setSelectedOptions({});
+                        setSecondsLeft(examData.duration);
+                      }}
+                    >
+                      Retake Exam
+                    </button>
+                    <button
+                      className="primary-contained-btn"
+                      onClick={() => {
+                        setView("review");
+                      }}
+                    >
+                      Review Answers
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="lottie-animation">
+                {result.verdict === "Pass" && (
+                  <lottie-player
+                    src="https://assets2.lottiefiles.com/packages/lf20_ya4ycrti.json"
+                    background="transparent"
+                    speed="1"
+                    loop
+                    autoplay
+                  ></lottie-player>
+                )}
+
+                {result.verdict === "Fail" && (
+                  <lottie-player
+                    src="https://assets4.lottiefiles.com/packages/lf20_qp1spzqv.json"
+                    background="transparent"
+                    speed="1"
+                    loop
+                    autoplay
+                  ></lottie-player>
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {view === "review" && (
-          <div className="flex flex-col gap-2">
-            {questions.map((question, index) => {
-              const isCorrect =
-                question.correctOption === selectedOptions[index];
-              return (
-                <div
-                  className={`
+          {view === "review" && (
+            <div className="flex flex-col gap-2">
+              {questions.map((question, index) => {
+                const isCorrect =
+                  question.correctOption === selectedOptions[index];
+                return (
+                  <div
+                    className={`
                   flex flex-col gap-1 p-2 ${
                     isCorrect ? "bg-success" : "bg-error"
                   }
                 `}
-                >
-                  <h1 className="text-xl">
-                    {index + 1} : {question.name}
-                  </h1>
-                  <h1 className="text-md">
-                    Submitted Answer : {selectedOptions[index]} -{" "}
-                    {question.options[selectedOptions[index]]}
-                  </h1>
-                  <h1 className="text-md">
-                    Correct Answer : {question.correctOption} -{" "}
-                    {question.options[question.correctOption]}
-                  </h1>
-                </div>
-              );
-            })}
+                  >
+                    <h1 className="text-xl">
+                      {index + 1} : {question.name}
+                    </h1>
+                    <h1 className="text-md">
+                      Submitted Answer : {selectedOptions[index]} -{" "}
+                      {question.options[selectedOptions[index]]}
+                    </h1>
+                    <h1 className="text-md">
+                      Correct Answer : {question.correctOption} -{" "}
+                      {question.options[question.correctOption]}
+                    </h1>
+                  </div>
+                );
+              })}
 
-            <div className="flex justify-center gap-2">
-              <button
-                className="primary-outlined-btn"
-                onClick={() => {
-                  navigate("/");
-                }}
-              >
-                Close
-              </button>
-              <button
-                className="primary-contained-btn"
-                onClick={() => {
-                  setView("instructions");
-                  setSelectedQuestionIndex(0);
-                  setSelectedOptions({});
-                  setSecondsLeft(examData.duration);
-                }}
-              >
-                Retake Exam
-              </button>
+              <div className="flex justify-center gap-2">
+                <button
+                  className="primary-outlined-btn"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Close
+                </button>
+                <button
+                  className="primary-contained-btn"
+                  onClick={() => {
+                    setView("instructions");
+                    setSelectedQuestionIndex(0);
+                    setSelectedOptions({});
+                    setSecondsLeft(examData.duration);
+                  }}
+                >
+                  Retake Exam
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     )
   );

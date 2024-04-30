@@ -86,6 +86,11 @@ router.post("/edit-exam-by-id", authMiddleware, async (req, res) => {
 // delete exam by id
 router.post("/delete-exam-by-id", authMiddleware, async (req, res) => {
   try {
+    // just for my ocd for cleanliness
+    const exam = await Exam.findById(req.body.examId);
+    for (const questionId of exam.questions) {
+      await Question.deleteOne(questionId);
+    }
     await Exam.findByIdAndDelete(req.body.examId);
     res.send({
       message: "Exam deleted successfully",
@@ -172,6 +177,7 @@ router.post("/generate-questions", async (req, res) => {
     const questions = await generate(
       `You are a helpful AI that is able to generate ${exam.totalMarks} mcq questions and answers, the length of each answer should not be more than 15 words, store all answers and questions and options in a JSON array. You are to generate a random hard mcq question about ${exam.category}. Format of the JSON array should be: [{question: "question", correctAnswer: "A/B/C/D", optionA: "optionA with max length of 15 words", optionB: "optionB with max length of 15 words", optionC: "optionC with max length of 15 words", optionD: "optionD with max length of 15 words"}, ...]. return response in JSON format [{}]`
     );
+    console.log(questions);
     for (let i = 0; i < exam.totalMarks; i++) {
       try {
         const newQuestion = new Question({
@@ -192,7 +198,9 @@ router.post("/generate-questions", async (req, res) => {
       }
     }
     await exam.save();
-    res.status(200).json({ message: "Questions generated successfully" });
+    res
+      .status(200)
+      .json({ message: "Questions generated successfully", success: true });
   } catch (error) {
     res.status(500).json({
       message: "Chatgpt API gone paid. Send Money for API🥲",

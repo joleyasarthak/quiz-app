@@ -5,7 +5,6 @@ import { getAllExams } from "../../../apicalls/exams";
 import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 import PageTitle from "../../../components/PageTitle";
 import { useNavigate } from "react-router-dom";
-import { parseISO } from "date-fns";
 import dayjs from "dayjs";
 function Home() {
   const [exams, setExams] = React.useState([]);
@@ -32,10 +31,6 @@ function Home() {
     getExams();
   }, []);
 
-  useEffect(() => {
-    console.log(exams[0]);
-  }, [exams]);
-
   return (
     user && (
       <div>
@@ -55,13 +50,13 @@ function Home() {
                     Passing Marks : {exam.passingMarks}
                   </h1>
                   <h1 className="text-md">Duration : {exam.duration}</h1>
-                  <h1 className="text-md">
-                    Start Time:{" "}
-                    {dayjs(exam.datetime[0]).format("YYYY-MM-DD HH:mm")}
+                  <h1 className="text-md text-sm">
+                    StartTime:{" "}
+                    {dayjs(exam.datetime[0]).format("DD MMM YYYY hh:mm a")}
                   </h1>
-                  <h1 className="text-md">
-                    End Time:{" "}
-                    {dayjs(exam.datetime[1]).format("YYYY-MM-DD HH:mm")}
+                  <h1 className="text-md text-sm">
+                    EndTime:{" "}
+                    {dayjs(exam.datetime[1]).format("DD MMM YYYY hh:mm a")}
                   </h1>
                   <button
                     className="primary-outlined-btn"
