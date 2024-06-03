@@ -49,7 +49,11 @@ function Home() {
                   <h1 className="text-md">
                     Passing Marks : {exam.passingMarks}
                   </h1>
-                  <h1 className="text-md">Duration : {exam.duration}</h1>
+                  <h1 className="text-md">
+                    Duration : {Math.floor(exam.duration / 60)} mins{" "}
+                    {exam.duration % 60 !== 0 && `${exam.duration % 60} sec`}
+                  </h1>
+
                   <h1 className="text-md text-sm">
                     StartTime:{" "}
                     {dayjs(exam.datetime[0]).format("DD MMM YYYY hh:mm a")}

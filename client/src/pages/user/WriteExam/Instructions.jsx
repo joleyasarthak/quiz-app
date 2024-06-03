@@ -3,17 +3,19 @@ import { useNavigate } from "react-router-dom";
 
 function Instructions({ examData, setView, startTimer }) {
   const navigate = useNavigate();
+  const examDuration = `${Math.floor(examData.duration / 60)} mins${
+    examData.duration % 60 !== 0 ? ` ${examData.duration % 60} sec` : ""
+  }`;
+
   return (
     <div className="flex flex-col items-center gap-5">
       <ul className="flex flex-col gap-1">
         <h1 className="text-2xl underline">Instructions</h1>
-        <li>Exam must be completed in {examData.duration} secons.</li>
-        <li>
-          Exam will be submitted automatically after {examData.duration}{" "}
-          seconds.
-        </li>
+        <li>Exam must be completed in {examDuration}.</li>
+        <li>Exam will be submitted automatically after {examDuration}.</li>
         <li>Once submitted, you cannot change your answers.</li>
         <li>Do not refresh the page.</li>
+        <li>Don't Change or Switch Tabs otherwise, quiz will be cancelled.</li>
         <li>
           You can use the <span className="font-bold">"Previous"</span> and{" "}
           <span className="font-bold">"Next"</span> buttons to navigate between
