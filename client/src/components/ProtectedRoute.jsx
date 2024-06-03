@@ -134,24 +134,26 @@ function ProtectedRoute({ children }) {
   return (
     <div className="layout">
       <div className="flex gap-2 w-full h-full h-100">
-        <div className="sidebar">
-          <div className="menu">
-            {menu.map((item, index) => {
-              return (
-                <div
-                  className={`menu-item ${
-                    getIsActiveOrNot(item.paths) && "active-menu-item"
-                  }`}
-                  key={index}
-                  onClick={item.onClick}
-                >
-                  {item.icon}
-                  {!collapsed && <span>{item.title}</span>}
-                </div>
-              );
-            })}
+        {!activeRoute.startsWith("/user/write-exam") && (
+          <div className="sidebar">
+            <div className="menu">
+              {menu.map((item, index) => {
+                return (
+                  <div
+                    className={`menu-item ${
+                      getIsActiveOrNot(item.paths) && "active-menu-item"
+                    }`}
+                    key={index}
+                    onClick={item.onClick}
+                  >
+                    {item.icon}
+                    {!collapsed && <span>{item.title}</span>}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
         <div className="body">
           <div className="header flex justify-between">
             {!collapsed && (

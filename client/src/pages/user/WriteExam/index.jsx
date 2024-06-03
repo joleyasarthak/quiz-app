@@ -120,18 +120,18 @@ function WriteExam() {
     }
   }, []);
 
-  useEffect(() => {
-    if (view !== "questions") return;
-    const handleBeforeUnload = (event) => {
-      event.preventDefault();
-      event.returnValue =
-        "Are you sure you want to leave? Your progress may not be saved.";
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, [view]);
+  // useEffect(() => {
+  //   if (view !== "questions") return;
+  //   const handleBeforeUnload = (event) => {
+  //     event.preventDefault();
+  //     event.returnValue =
+  //       "Are you sure you want to leave? Your progress may not be saved.";
+  //   };
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, [view]);
   return (
     examData && (
       <div>
