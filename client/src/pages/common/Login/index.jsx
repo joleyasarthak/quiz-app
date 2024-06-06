@@ -4,12 +4,19 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../../apicalls/users";
 import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
+import { validate, res } from "react-email-validator";
 
 function Login() {
   const dispatch = useDispatch();
   const onFinish = async (values) => {
     try {
       dispatch(ShowLoading());
+      validate(values.email);
+      if (!res) {
+        dispatch(HideLoading());
+        message.error("Invalid Email");
+        return;
+      }
       const response = await loginUser(values);
       dispatch(HideLoading());
       if (response.success) {

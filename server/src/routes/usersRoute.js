@@ -97,4 +97,20 @@ router.post("/get-user-info", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/update", authMiddleware, async (req, res) => {
+  try {
+    await User.findByIdAndUpdate(req.body.userId, req.body);
+    res.send({
+      message: "User updated successfully",
+      success: true,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
+
 module.exports = router;

@@ -17,10 +17,10 @@ import WriteExam from "./pages/user/WriteExam";
 import UserReports from "./pages/user/UserReports";
 import AdminReports from "./pages/admin/AdminReports";
 import AboutUs from "./pages/common/AboutUs";
+import Profile from "./pages/common/Profile";
 
 function App() {
   const { loading } = useSelector((state) => state.loader);
-  console.log(process.env.REACT_APP_BACKEND_URI);
   return (
     <>
       {loading && <Loader />}
@@ -30,10 +30,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route
-            path="/about-us"
+            path="/profile"
             element={
               <ProtectedRoute>
-                <AboutUs />
+                <Profile />
               </ProtectedRoute>
             }
           />
@@ -50,6 +50,24 @@ function App() {
             path="/user/write-exam/:id"
             element={
               <ProtectedRoute>
+                {/* <RouteLeavingGuard
+                  when={whenState}
+                  navigate={(path) => {
+                    history.push(path);
+                  }}
+                  shouldBlockNavigation={(location) => {
+                    if (whenState) {
+                      // if (location.pathname === 'signup') {
+                      //     return true
+                      //   }
+                      return true;
+                    }
+                    return false;
+                  }}
+                  yes="yes"
+                  no="no"
+                  content="Are you sure you want to leave?"
+                /> */}
                 <WriteExam />
               </ProtectedRoute>
             }

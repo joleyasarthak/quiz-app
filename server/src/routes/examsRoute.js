@@ -177,7 +177,6 @@ router.post("/generate-questions", async (req, res) => {
     const questions = await generate(
       `You are a helpful AI that is able to generate ${exam.totalMarks} mcq questions and answers, the length of each answer should not be more than 15 words, store all answers and questions and options in a JSON array. You are to generate a random hard mcq question about ${exam.category}. Format of the JSON array should be: [{question: "question", correctAnswer: "A/B/C/D", optionA: "optionA with max length of 15 words", optionB: "optionB with max length of 15 words", optionC: "optionC with max length of 15 words", optionD: "optionD with max length of 15 words"}, ...]. return response in JSON format [{}]`
     );
-    console.log(questions);
     for (let i = 0; i < exam.totalMarks; i++) {
       try {
         const newQuestion = new Question({

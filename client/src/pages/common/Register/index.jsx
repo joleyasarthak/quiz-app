@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../../apicalls/users";
 import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
+import { validate, res } from "react-email-validator";
 
 function Register() {
   const dispatch = useDispatch();
@@ -11,8 +12,13 @@ function Register() {
   const onFinish = async (values) => {
     try {
       dispatch(ShowLoading());
+      validate(values.email);
+      if (!res) {
+        dispatch(HideLoading());
+        message.error("Invalid Email");
+        return;
+      }
       const response = await registerUser(values);
-
       dispatch(HideLoading());
       if (response.success) {
         message.success(response.message);

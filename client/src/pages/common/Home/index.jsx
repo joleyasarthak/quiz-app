@@ -6,6 +6,7 @@ import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 import PageTitle from "../../../components/PageTitle";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
+
 function Home() {
   const [exams, setExams] = React.useState([]);
   const navigate = useNavigate();

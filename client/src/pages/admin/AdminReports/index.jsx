@@ -5,15 +5,20 @@ import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 import { getAllReports } from "../../../apicalls/reports";
 import { useEffect } from "react";
+import exportFromJSON from "export-from-json";
+
 import moment from "moment";
 
 function AdminReports() {
   const [reportsData, setReportsData] = React.useState([]);
+  const [exportData, setExportData] = React.useState([]);
   const dispatch = useDispatch();
   const [filters, setFilters] = React.useState({
     examName: "",
     userName: "",
   });
+  const fileName = "Exam Result";
+  const exportType = "xls";
   const columns = [
     {
       title: "Exam Name",
@@ -24,6 +29,11 @@ function AdminReports() {
       title: "User Name",
       dataIndex: "userName",
       render: (text, record) => <>{record.user.name}</>,
+    },
+    {
+      title: "Enrollment No",
+      dataIndex: "enrollment",
+      render: (text, record) => <>{record.user.rollno}</>,
     },
     {
       title: "Date",
@@ -70,9 +80,31 @@ function AdminReports() {
     }
   };
 
+  const downloadXLS = () => {
+    exportFromJSON({ data: exportData, fileName, exportType });
+  };
+
   useEffect(() => {
     getData(filters);
   }, []);
+
+  useEffect(() => {
+    setExportData(
+      reportsData.map((report) => {
+        return {
+          enrollment: report.user.rollno,
+          examName: report.exam.name,
+          userName: report.user.name,
+          email: report.user.email,
+          date: moment(report.createdAt).format("DD-MM-YYYY hh:mm:ss"),
+          totalMarks: report.exam.totalMarks,
+          passingMarks: report.exam.passingMarks,
+          obtainedMarks: report.result.correctAnswers.length,
+          verdict: report.result.verdict,
+        };
+      })
+    );
+  }, [reportsData]);
 
   return (
     <div>
@@ -104,10 +136,16 @@ function AdminReports() {
             });
           }}
         >
-          Clear 
+          Clear
         </button>
-        <button className="primary-contained-btn" onClick={() => getData(filters)}>
+        <button
+          className="primary-contained-btn"
+          onClick={() => getData(filters)}
+        >
           Search
+        </button>
+        <button className="primary-contained-btn" onClick={() => downloadXLS()}>
+          Export
         </button>
       </div>
       <Table columns={columns} dataSource={reportsData} className="mt-2" />

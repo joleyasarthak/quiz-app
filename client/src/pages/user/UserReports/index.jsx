@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PageTitle from "../../../components/PageTitle";
 import { message, Modal, Table } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 import { getAllReportsByUser } from "../../../apicalls/reports";
 import { useEffect } from "react";
 import moment from "moment";
 
 function UserReports() {
-  const [reportsData, setReportsData] = React.useState([]);
+  const [reportsData, setReportsData] = React.useState(null);
+  const { user } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const columns = [
     {
@@ -44,11 +45,11 @@ function UserReports() {
       render: (text, record) => <>{record.result.verdict}</>,
     },
   ];
-
   const getData = async () => {
     try {
       dispatch(ShowLoading());
       const response = await getAllReportsByUser();
+      console.log(response.data);
       if (response.success) {
         setReportsData(response.data);
       } else {
@@ -66,11 +67,13 @@ function UserReports() {
   }, []);
 
   return (
-    <div>
-      <PageTitle title="Reports" />
-      <div className="divider"></div>
-      <Table columns={columns} dataSource={reportsData} />
-    </div>
+    user && (
+      <div>
+        <PageTitle title="Reports" />
+        <div className="divider"></div>
+        <Table columns={columns} dataSource={reportsData} />
+      </div>
+    )
   );
 }
 

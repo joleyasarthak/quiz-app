@@ -27,10 +27,10 @@ function ProtectedRoute({ children }) {
       onClick: () => navigate("/user/reports"),
     },
     {
-      title: "About Us",
-      paths: ["/about-us"],
+      title: "Profile",
+      paths: ["/profile"],
       icon: <i className="ri-user-line"></i>,
-      onClick: () => navigate("/about-us"),
+      onClick: () => navigate("/profile"),
     },
     {
       title: "Logout",
@@ -63,10 +63,10 @@ function ProtectedRoute({ children }) {
       onClick: () => navigate("/admin/reports"),
     },
     {
-      title: "About Us",
-      paths: ["/about-us"],
+      title: "Profile",
+      paths: ["/profile"],
       icon: <i className="ri-user-line"></i>,
-      onClick: () => navigate("/about-us"),
+      onClick: () => navigate("/profile"),
     },
     {
       title: "Logout",
