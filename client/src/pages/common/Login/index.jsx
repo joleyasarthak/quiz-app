@@ -60,6 +60,9 @@ function Login() {
               <Link to="/register" className="underline">
                 Not a member? Register
               </Link>
+              <Link to="/forgot-password" className="underline">
+                Forgot Password?
+              </Link>
             </div>
           </Form>
         </div>

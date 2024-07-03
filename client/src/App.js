@@ -18,6 +18,7 @@ import UserReports from "./pages/user/UserReports";
 import AdminReports from "./pages/admin/AdminReports";
 import AboutUs from "./pages/common/AboutUs";
 import Profile from "./pages/common/Profile";
+import ForgotPassword from "./pages/common/ForgotPassword";
 
 function App() {
   const { loading } = useSelector((state) => state.loader);
@@ -28,6 +29,7 @@ function App() {
         <Routes>
           {/* Common Routes */}
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/profile"

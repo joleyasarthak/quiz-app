@@ -37,6 +37,29 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/update-password", async (req, res) => {
+  try {
+    // check if user exists
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res
+        .status(200)
+        .send({ message: "User doesnt exists", success: false });
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    user.password = hashedPassword;
+    await user.save();
+    return res.status(200).send({ message: "Password updated", success: true });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
+
 // user login
 
 router.post("/login", async (req, res) => {

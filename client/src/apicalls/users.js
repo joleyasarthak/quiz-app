@@ -9,6 +9,18 @@ export const registerUser = async (payload) => {
   }
 };
 
+export const updatePassword = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "/api/users/update-password",
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 export const loginUser = async (payload) => {
   try {
     const response = await axiosInstance.post("/api/users/login", payload);
