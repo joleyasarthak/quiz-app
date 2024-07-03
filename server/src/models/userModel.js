@@ -3,7 +3,7 @@ const userSchema = new mongoose.Schema(
   {
     rollno: {
       type: String,
-      required: true,
+      default: "",
       unique: true,
     },
     name: {

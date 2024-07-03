@@ -36,6 +36,11 @@ const examSchema = new mongoose.Schema(
       ref: "questions",
       required: true,
     },
+    // orgId: {
+    //   type: String,
+    //   default: "iist",
+    //   required: true,
+    // },
   },
   {
     timestamps: true,

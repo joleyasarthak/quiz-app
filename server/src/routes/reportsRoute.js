@@ -90,4 +90,29 @@ router.post("/get-all-reports-by-user", authMiddleware, async (req, res) => {
   }
 });
 
+router.post("/check-user", authMiddleware, async (req, res) => {
+  try {
+    const reports = await Report.find({ exam: req.body.quizId }).populate(
+      "user"
+    );
+    console.log(reports);
+    const userHasGivenTest = reports.some((report) => console.log(report));
+    if (userHasGivenTest) {
+      return res.status(200).send({
+        success: true,
+      });
+    }
+    return res.status(400).send({
+      message: "You have attempted this quiz before.",
+      success: false,
+    });
+  } catch (error) {
+    res.status(500).send({
+      message: error.message,
+      data: error,
+      success: false,
+    });
+  }
+});
+
 module.exports = router;

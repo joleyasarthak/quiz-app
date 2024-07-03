@@ -13,6 +13,18 @@ export const addReport = async (payload) => {
   }
 };
 
+export const checkUserBeforeQuiz = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "/api/reports/check-user",
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
+
 // get all reports
 export const getAllReports = async (filters) => {
   try {

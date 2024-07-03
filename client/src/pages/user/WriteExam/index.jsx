@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getExamById } from "../../../apicalls/exams";
-import { addReport } from "../../../apicalls/reports";
+import { addReport, checkUserBeforeQuiz } from "../../../apicalls/reports";
 import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 import Instructions from "./Instructions";
 
@@ -24,6 +24,13 @@ function WriteExam() {
   const getExamData = async () => {
     try {
       dispatch(ShowLoading());
+      const checkUserResponse = await checkUserBeforeQuiz({
+        quizId: params.id,
+      });
+      if (!checkUserResponse.success) {
+        message.error(response.message);
+        return;
+      }
       const response = await getExamById({
         examId: params.id,
       });
@@ -83,7 +90,7 @@ function WriteExam() {
     }
   };
 
-  const startTimer = () => {
+  const startTimer = async () => {
     const date = new Date();
     const startDate = new Date(examData.datetime[0]);
     const endDate = new Date(examData.datetime[1]);

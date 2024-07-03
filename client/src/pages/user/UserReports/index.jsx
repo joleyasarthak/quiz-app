@@ -8,14 +8,14 @@ import { useEffect } from "react";
 import moment from "moment";
 
 function UserReports() {
-  const [reportsData, setReportsData] = React.useState(null);
+  const [reportsData, setReportsData] = React.useState([]);
   const { user } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const columns = [
     {
       title: "Exam Name",
       dataIndex: "examName",
-      render: (text, record) => <>{record.exam.name}</>,
+      render: (text, record) => <>{record.exam?.name}</>,
     },
     {
       title: "Date",
@@ -27,31 +27,33 @@ function UserReports() {
     {
       title: "Total Marks",
       dataIndex: "totalQuestions",
-      render: (text, record) => <>{record.exam.totalMarks}</>,
+      render: (text, record) => <>{record.exam?.totalMarks}</>,
     },
     {
       title: "Passing Marks",
       dataIndex: "correctAnswers",
-      render: (text, record) => <>{record.exam.passingMarks}</>,
+      render: (text, record) => <>{record.exam?.passingMarks}</>,
     },
     {
       title: "Obtained Marks",
       dataIndex: "correctAnswers",
-      render: (text, record) => <>{record.result.correctAnswers.length}</>,
+      render: (text, record) => <>{record.result?.correctAnswers.length}</>,
     },
     {
       title: "Verdict",
       dataIndex: "verdict",
-      render: (text, record) => <>{record.result.verdict}</>,
+      render: (text, record) => <>{record.result?.verdict}</>,
     },
   ];
   const getData = async () => {
     try {
       dispatch(ShowLoading());
       const response = await getAllReportsByUser();
-      console.log(response.data);
       if (response.success) {
-        setReportsData(response.data);
+        const filteredResponse = response.data.filter((obj) => {
+          return Object.values(obj).every((value) => value !== null);
+        });
+        setReportsData(filteredResponse);
       } else {
         message.error(response.message);
       }
@@ -65,6 +67,11 @@ function UserReports() {
   useEffect(() => {
     getData();
   }, []);
+
+  useEffect(() => {
+    const filteredData = reportsData.filter((item) => item !== null);
+    console.log(filteredData);
+  }, [reportsData]);
 
   return (
     user && (

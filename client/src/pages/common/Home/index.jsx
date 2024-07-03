@@ -1,4 +1,4 @@
-import { Col, message, Row } from "antd";
+import { Col, Input, message, Row } from "antd";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllExams } from "../../../apicalls/exams";
@@ -35,7 +35,24 @@ function Home() {
   return (
     user && (
       <div>
-        <PageTitle title={`Hi ${user.name}, Welcome to QuizCraft`} />
+        <div className="flex justify-between">
+          <div className="mt-2 text-2xl">
+            <h1>Hi {user.name}, Welcome to QuizCraft</h1>
+          </div>
+          <div className="mt-1 items-end flex justify-around space-x-3">
+            {/* <label htmlFor="org-id" className="">
+              Org ID:
+            </label> */}
+            {/* <Input
+              id="org-id"
+              className="w-full max-w-sm "
+              placeholder="Enter Organization ID"
+            />
+            <button className="primary-contained-btn px-2 py-1 text-sm rounded-xl">
+              Filter
+            </button> */}
+          </div>
+        </div>
         <div className="divider"></div>
         <Row gutter={[16, 16]}>
           {exams &&

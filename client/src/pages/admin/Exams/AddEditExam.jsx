@@ -225,17 +225,13 @@ function AddEditExam() {
                     <input type="number" />
                   </Form.Item>
                 </Col>
-              </Row>
-              <Row gutter={[10, 10]} className="mt-3">
                 {/* <Col span={8}>
-                  <h2>Active</h2>
-                  <Form.Item name="active" valuePropName="checked">
-                    <Switch />
+                  <Form.Item label="Org ID" name="orgid">
+                    <input type="string" />
                   </Form.Item>
                 </Col> */}
-                {/* <Checkbox onChange={(e) => setToggleActive(e.target.checked)}>
-                    <Form.Item label="Is Quiz Ready? (Selecting This makes quiz visible to everyone)" />
-                  </Checkbox> */}
+              </Row>
+              <Row gutter={[10, 10]} className="mt-3">
                 <Col span={8}>
                   <Form.Item label="Start Date" name="datetime">
                     <RangePicker
